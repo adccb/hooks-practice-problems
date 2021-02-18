@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { Callback, Ref } from "./components/";
 
-function App() {
+const App = () => {
+  const [callbackState, setCallbackState] = useState("null");
+  const [refState, setRefState] = useState("null");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Callback onChange={setCallbackState} />
+      <p>parent component value: {callbackState}</p>
+      <hr />
+      <Ref onChange={setRefState} />
+      <p>active button: {refState?.name}</p>
     </div>
   );
-}
+};
 
 export default App;
