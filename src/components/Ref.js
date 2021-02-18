@@ -5,25 +5,40 @@ import React, { useState, useRef } from "react";
 // make it green and give the parent component's
 // onChange a pointer to the html element tht got clicked.
 const Ref = ({ onChange }) => {
-  const [active, setActive] = useState(null);
+  const left = useRef(null);
+  const right = useRef(null);
+  const [active, setActive] = useState(left.current);
 
-  // if you haven't worked with raw html elements before,
-  // here's a snippet you might make use of here. replace
-  // the HTMLElement with, y'know, an actual html element
-  //
-  // HTMLElement.style["background-color"] = "green";
-  //
-  // and, to clear all the colors:
-  // document.querySelectorAll('button')
-  //   .forEach(el => el.style['background-color'] = '')
+  // clear the colors
+  document
+    .querySelectorAll("button")
+    .forEach((el) => (el.style["background-color"] = ""));
+
+  // apply the new active color
+  active.style["background-color"] = "green";
+
+  const update = (val) => () => {
+    setActive(val);
+    onChange(val);
+  };
 
   return (
     <>
-      <button name="left" type="button">
+      <button
+        ref={left}
+        name="left"
+        type="button"
+        onClick={update(left.current)}
+      >
         click me
       </button>
 
-      <button name="right" type="button">
+      <button
+        ref={right}
+        name="right"
+        type="button"
+        onClick={update(right.current)}
+      >
         don't click me
       </button>
     </>
