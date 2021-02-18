@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
-// this input records updates on blur. currently, though, it
-// won't update its parent component when it updates its
-// internal state. we should make it so it does update its caller,
-// and we should make it only do so on an actual value change.
+// this component tracks change events on blur. we should
+// make it track change events and rehydrate them with an api
+// function to send to the parent via onChange.
 //
-// i.e. if the user types "the", <blur>, <focus>, "t<backspace>", <blur>,
-// the onChange event should not be fired. the field state was the same on
-// both blur events.
-const Callback = ({ onChange }) => {
+// issue is, this api function is really heavyweight, so
+// we only want to recompute that function call when the
+// entity itself changes.
+const Callback = ({ onChange, createEntity }) => {
   const [inputVal, setInputVal] = useState("");
   return <input type="text" onBlur={(e) => setInputVal(e.target.value)} />;
 };

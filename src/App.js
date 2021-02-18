@@ -6,10 +6,12 @@ const App = () => {
   const [callbackState, setCallbackState] = useState("null");
   const [refState, setRefState] = useState("null");
 
+  const createEntity = (val) => ({ val, created_at: Date.now() });
+
   return (
     <div className="App">
-      <Callback onChange={setCallbackState} />
-      <p>parent component value: {callbackState}</p>
+      <Callback onChange={setCallbackState} createEntity={createEntity} />
+      <p>parent component value: {callbackState?.val}</p>
       <hr />
       <Ref onChange={setRefState} />
       <p>active button: {refState?.name}</p>
