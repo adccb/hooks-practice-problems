@@ -15,7 +15,7 @@ const Ref = ({ onChange }) => {
     .forEach((el) => (el.style["background-color"] = ""));
 
   // apply the new active color
-  active.style["background-color"] = "green";
+  if (active) active.style["background-color"] = "green";
 
   const update = (val) => () => {
     setActive(val);

@@ -9,6 +9,15 @@ import React, { useState, useCallback, useEffect } from "react";
 // entity itself changes.
 const Callback = ({ onChange, createEntity }) => {
   const [inputVal, setInputVal] = useState("");
+
+  // compute the function only one time per input change
+  const submit = useCallback(() => onChange(createEntity(inputVal)), [
+    inputVal,
+  ]);
+
+  // fire the submit call once a rerender to keep the parent updated
+  useEffect(() => submit(inputVal), [inputVal]);
+
   return <input type="text" onBlur={(e) => setInputVal(e.target.value)} />;
 };
 
